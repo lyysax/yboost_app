@@ -13,13 +13,6 @@ func main() {
 		log.Println("Aucun fichier .env charge (ok en production si les variables sont deja definies)")
 	}
 
-	skipDB := os.Getenv("SKIP_DB") == "1"
-	if skipDB {
-		log.Println("Mode sans base de donnees active (SKIP_DB=1)")
-	} else {
-		initDB()
-	}
-
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "templates/index.html")
