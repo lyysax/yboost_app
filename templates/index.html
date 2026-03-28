@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yboost — Todo List</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <script>
+    // Si pas connecté, redirige vers login
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    if (!getCookie('user_id')) {
+        window.location.href = '/login';
+    }
+</script>
+
+    <div class="container">
+        <button onclick="logout()">Se déconnecter</button>
+        <div id="meteo">Chargement météo...</div>
+        <h1>📝 Ma Todo List</h1>
+
+        <div class="form-card">
+            <input type="text" id="todoInput" placeholder="Ajouter une tâche..." />
+            <button onclick="createTodo()">Ajouter</button>
+        </div>
+
+        <ul id="todoList"></ul>
+    </div>
+
+    <script>
+
+        async function loadTodos() {
+            const res = await fetch('/todos');
+            const todos = await res.json();
+            const list = document.getElementById('todoList');
+            list.innerHTML = '';
+
+            if (!todos || todos.length === 0) {
+                list.innerHTML = '<li class="empty">Aucune tâche pour l\'instant 🎉</li>';
+                return;
+            }
+
+            todos.forEach(todo => {
+                const li = document.createElement('li');
+                li.className = todo.done ? 'done' : '';
+                li.innerHTML = `
+                    <span onclick="toggleTodo(${todo.id})">${todo.title}</span>
+                    <button class="delete" onclick="deleteTodo(${todo.id})">🗑️</button>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        async function createTodo() {
+            const input = document.getElementById('todoInput');
+            const title = input.value.trim();
+            if (!title) return;
+
+            await fetch('/todos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title })
+            });
+
+            input.value = '';
+            loadTodos();
+        }
+
+        async function toggleTodo(id) {
+            await fetch(`/todos/${id}`, { method: 'PUT' });
+            loadTodos();
+        }
+
+        async function deleteTodo(id) {
+            await fetch(`/todos/${id}`, { method: 'DELETE' });
+            loadTodos();
+        }
+
+        // Ajouter avec la touche Entrée
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTodos();
+            loadMeteo();
+            document.getElementById('todoInput').addEventListener('keypress', e => {
+                if (e.key === 'Enter') createTodo();
+            });
+        });
+
+        // meteo
+        async function loadMeteo() {
+    const res = await fetch('/meteo');
+    if (!res.ok) {
+        document.getElementById('meteo').innerText = '🌡️ Météo indisponible';
+        return;
+    }
+    const data = await res.json();
+    document.getElementById('meteo').innerText = 
+        `🌤️ ${data.ville} — ${data.temperature} — ${data.description}`;
+}
+
+// Se déconnecter
+async function logout() {
+    await fetch('/logout', { method: 'POST' });
+    window.location.href = '/login';
+}
+    </script>
+</body>
+</html>

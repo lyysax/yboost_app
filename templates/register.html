@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription — Yboost</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Créer un compte</h1>
+
+        <div id="error" class="error-msg" style="display:none"></div>
+
+        <div class="form-card vertical">
+            <input type="email" id="email" placeholder="Email" />
+            <input type="password" id="password" placeholder="Mot de passe" />
+            <button onclick="register()">Créer mon compte</button>
+        </div>
+
+        <p class="switch-link">Déjà un compte ? <a href="/login">Se connecter</a></p>
+    </div>
+
+    <script>
+        async function register() {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            const res = await fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (res.ok) {
+                window.location.href = '/';
+            } else {
+                const msg = await res.text();
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').innerText = msg;
+            }
+        }
+    </script>
+</body>
+</html>
