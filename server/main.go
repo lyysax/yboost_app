@@ -69,3 +69,5 @@ func main() {
 	fmt.Println("🚀 Serveur lancé sur http://localhost:" + port)
 	log.Fatal(http.ListenAndServe(":"+port, mux))
 }
+
+//  test

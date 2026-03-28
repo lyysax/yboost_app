@@ -172,3 +172,5 @@ func Meteo(w http.ResponseWriter, r *http.Request) {
 		"ville":       "Bordeaux",
 	})
 }
+
+// test

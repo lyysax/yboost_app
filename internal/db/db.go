@@ -27,3 +27,5 @@ func Connect() {
 
 	fmt.Println("✅ Connecté à Supabase !")
 }
+
+// test
