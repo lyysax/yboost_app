@@ -2,22 +2,30 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Inscription — Yboost</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Todo List</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
-<body>
-    <div class="container">
-        <h1>✨ Créer un compte</h1>
+<body class="auth-page">
+    <div class="auth-shell">
+        <div class="card">
+            <div class="card-body auth-card">
+                <h1>Créer un compte</h1>
+                <p class="auth-subtitle">Un compte simple pour organiser tes tâches au quotidien.</p>
 
-        <div id="error" class="error-msg" style="display:none"></div>
+                <div id="error" class="error-msg" style="display:none"></div>
 
-        <div class="form-card vertical">
-            <input type="email" id="email" placeholder="Email" />
-            <input type="password" id="password" placeholder="Mot de passe" />
-            <button onclick="register()">Créer mon compte</button>
+                <div class="auth-form">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="ton@email.com" />
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" placeholder="********" />
+                    <button onclick="register()">Créer mon compte</button>
+                </div>
+
+                <p class="switch-link">Déjà un compte ? <a href="/login">Se connecter</a></p>
+            </div>
         </div>
-
-        <p class="switch-link">Déjà un compte ? <a href="/login">Se connecter</a></p>
     </div>
 
     <script>

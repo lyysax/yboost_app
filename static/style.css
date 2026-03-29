@@ -1,118 +1,316 @@
+/* ════════════════════════════════════════════════
+   RESET & BASE
+   ════════════════════════════════════════════════ */
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: #f0f2f5;
+    background-color: #f9f9fa;
+    color: #4b5563;
     min-height: 100vh;
+}
+
+a {
+    color: #405189;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ════════════════════════════════════════════════
+   BARRE MÉTÉO (index uniquement)
+   ════════════════════════════════════════════════ */
+.meteo-bar {
+    width: 100%;
+    background-color: #405189;
+    color: #fff;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* ════════════════════════════════════════════════
+   NAVBAR (index uniquement)
+   ════════════════════════════════════════════════ */
+.navbar {
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #d2d2dc;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.6rem 2rem;
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid #d2d2dc;
+    border-radius: 4px;
+    padding: 0.35rem 1rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #555;
+    transition: background 0.2s;
+}
+
+.btn-logout:hover {
+    background: #f3f3f3;
+    color: #333;
+}
+
+/* ════════════════════════════════════════════════
+   LAYOUT INDEX (todo)
+   ════════════════════════════════════════════════ */
+.home-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-main {
+    flex: 1;
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 40px 16px;
+    padding: 6rem 1rem;
 }
 
-.container {
-    background: white;
-    border-radius: 16px;
-    padding: 32px;
+.home-main .container {
     width: 100%;
-    max-width: 520px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    max-width: 580px;
 }
 
-h1 {
-    font-size: 1.8rem;
-    margin-bottom: 24px;
-    color: #1a1a2e;
-}
-
-.form-card {
+/* ════════════════════════════════════════════════
+   LAYOUT AUTH (login / register)
+   ════════════════════════════════════════════════ */
+.auth-page {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px 16px;
+    background:
+        radial-gradient(circle at 12% 12%, #ffffff 0, rgba(255,255,255,0) 35%),
+        radial-gradient(circle at 88% 0%, #f2f5f8 0, rgba(242,245,248,0) 42%),
+        #f8f8f7;
+}
+
+.auth-shell {
+    width: 100%;
+    max-width: 500px;
+}
+
+/* ════════════════════════════════════════════════
+   CARD (partagée)
+   ════════════════════════════════════════════════ */
+.card {
+    background-color: #fff;
+    border: 1px solid #d2d2dc;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.card-body {
+    padding: 1.75rem 2rem;
+}
+
+.card-title {
+    color: #222;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+}
+
+/* ════════════════════════════════════════════════
+   FORMULAIRE AUTH
+   ════════════════════════════════════════════════ */
+h1 {
+    font-size: 1.5rem;
+    color: #222;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+}
+
+.auth-subtitle {
+    color: #6b7280;
+    font-size: 0.92rem;
+    margin-bottom: 1.4rem;
+    line-height: 1.5;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
     gap: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 1rem;
 }
 
-input[type="text"] {
-    flex: 1;
-    padding: 12px 16px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 1rem;
+.auth-form label {
+    font-size: 0.88rem;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1px solid #d2d2dc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #4b5563;
+    background: #fafafa;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-input[type="text"]:focus {
-    border-color: #6c63ff;
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #405189;
+    box-shadow: 0 0 0 3px rgba(64, 81, 137, 0.12);
+    background: #fff;
 }
 
-button {
-    padding: 12px 20px;
-    background: #6c63ff;
-    color: white;
+.auth-form button {
+    margin-top: 8px;
+    padding: 0.7rem 1.4rem;
+    background-color: #405189;
+    color: #fff;
     border: none;
-    border-radius: 10px;
-    font-size: 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
 }
 
-button:hover {
-    background: #574fd6;
+.auth-form button:hover {
+    background-color: #334270;
 }
 
-ul {
+.switch-link {
+    font-size: 0.88rem;
+    color: #6b7280;
+    margin-top: 0.75rem;
+}
+
+.error-msg {
+    margin-bottom: 1rem;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    background: #fff7f7;
+    color: #991b1b;
+    font-size: 0.88rem;
+}
+
+/* ════════════════════════════════════════════════
+   FORMULAIRE AJOUT TÂCHE (index)
+   ════════════════════════════════════════════════ */
+.add-items {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.add-items input[type="text"] {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    font-size: 0.875rem;
+    border: 1px solid #d2d2dc;
+    border-radius: 4px;
+    outline: none;
+    background: #fafafa;
+    transition: border-color 0.2s;
+}
+
+.add-items input[type="text"]:focus {
+    border-color: #405189;
+    background: #fff;
+}
+
+.add-items .btn {
+    background-color: #405189;
+    color: #fff;
+    border: none;
+    padding: 0.65rem 1.4rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.add-items .btn:hover {
+    background-color: #334270;
+}
+
+/*LISTE DES TÂCHES */
+.list-wrapper ul {
+    padding: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
-li {
+.list-wrapper ul li {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 16px;
-    background: #f8f8ff;
-    border-radius: 10px;
-    border-left: 4px solid #6c63ff;
+    font-size: 0.9375rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.list-wrapper ul li:last-child {
+    border-bottom: none;
+}
+
+.list-wrapper ul li span {
+    flex: 1;
+    cursor: pointer;
+    padding-right: 0.5rem;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.list-wrapper ul li span:hover {
+    color: #405189;
+}
+
+.list-wrapper ul li.done span {
+    text-decoration: line-through;
+    text-decoration-color: #3da5f4;
+    color: #aaa;
+}
+
+.list-wrapper ul li .delete {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 0.25rem;
+    opacity: 0.4;
     transition: opacity 0.2s;
 }
 
-li.done {
-    opacity: 0.5;
-    border-left-color: #aaa;
+.list-wrapper ul li .delete:hover {
+    opacity: 1;
 }
 
-li.done span {
-    text-decoration: line-through;
-}
-
-li span {
-    cursor: pointer;
-    flex: 1;
-    font-size: 1rem;
-}
-
-li .delete {
-    background: transparent;
-    color: #e74c3c;
-    font-size: 1.1rem;
-    padding: 4px 8px;
-}
-
-li .delete:hover {
-    background: #fdecea;
-    border-radius: 6px;
-}
-
-.empty {
-    text-align: center;
-    color: #aaa;
+.list-wrapper ul li.empty {
+    color: #bbb;
+    font-style: italic;
+    justify-content: center;
     border: none;
-    background: transparent;
+    padding: 1rem 0;
 }
-/* test */

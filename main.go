@@ -66,6 +66,6 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-	fmt.Println("🚀 Serveur lancé sur http://localhost:" + port)
+	fmt.Println("Serveur lancé sur http://localhost:" + port)
 	log.Fatal(http.ListenAndServe(":"+port, mux))
 }

@@ -3,38 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yboost — Todo List</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
-<body>
+<body class="home-page">
     <script>
-    // Si pas connecté, redirige vers login
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+        if (!getCookie('user_id')) {
+            window.location.href = '/login';
+        }
+    </script>
 
-    if (!getCookie('user_id')) {
-        window.location.href = '/login';
-    }
-</script>
+    <div id="meteo" class="meteo-bar">Chargement météo...</div>
 
-    <div class="container">
-        <button onclick="logout()">Se déconnecter</button>
-        <div id="meteo">Chargement météo...</div>
-        <h1>📝 Ma Todo List</h1>
+    <nav class="navbar">
+        <button class="btn-logout" onclick="logout()">Se déconnecter</button>
+    </nav>
 
-        <div class="form-card">
-            <input type="text" id="todoInput" placeholder="Ajouter une tâche..." />
-            <button onclick="createTodo()">Ajouter</button>
+    <main class="home-main">
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">📝 Ma Todo List</h4>
+
+                    <div class="add-items">
+                        <input type="text" id="todoInput" placeholder="Ajouter une tâche..." />
+                        <button class="btn" onclick="createTodo()">Ajouter</button>
+                    </div>
+
+                    <div class="list-wrapper">
+                        <ul id="todoList"></ul>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <ul id="todoList"></ul>
-    </div>
+    </main>
 
     <script>
-
         async function loadTodos() {
             const res = await fetch('/todos');
             const todos = await res.json();
@@ -42,7 +51,7 @@
             list.innerHTML = '';
 
             if (!todos || todos.length === 0) {
-                list.innerHTML = '<li class="empty">Aucune tâche pour l\'instant 🎉</li>';
+                list.innerHTML = '<li class="empty">Aucune tâche pour l\'instant</li>';
                 return;
             }
 
@@ -82,7 +91,6 @@
             loadTodos();
         }
 
-        // Ajouter avec la touche Entrée
         document.addEventListener('DOMContentLoaded', () => {
             loadTodos();
             loadMeteo();
@@ -91,23 +99,21 @@
             });
         });
 
-        // meteo
         async function loadMeteo() {
-    const res = await fetch('/meteo');
-    if (!res.ok) {
-        document.getElementById('meteo').innerText = '🌡️ Météo indisponible';
-        return;
-    }
-    const data = await res.json();
-    document.getElementById('meteo').innerText = 
-        `🌤️ ${data.ville} — ${data.temperature} — ${data.description}`;
-}
+            const res = await fetch('/meteo');
+            if (!res.ok) {
+                document.getElementById('meteo').innerText = '🌡️ Météo indisponible';
+                return;
+            }
+            const data = await res.json();
+            document.getElementById('meteo').innerText =
+                `🌤️ ${data.ville} — ${data.temperature} — ${data.description}`;
+        }
 
-// Se déconnecter
-async function logout() {
-    await fetch('/logout', { method: 'POST' });
-    window.location.href = '/login';
-}
+        async function logout() {
+            await fetch('/logout', { method: 'POST' });
+            window.location.href = '/login';
+        }
     </script>
 </body>
 </html>

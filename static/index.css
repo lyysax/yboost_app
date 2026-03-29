@@ -1,0 +1,119 @@
+body { background-color: #f9f9fa; margin: 0; font-family: sans-serif; }
+
+/* Météo bar */
+.meteo-bar {
+    background-color: #405189;
+    color: #fff;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Layout */
+.padding { padding: 3rem 1rem; }
+.container { max-width: 600px; margin: 0 auto; }
+
+/* Card */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #d2d2dc;
+    border-radius: 4px;
+}
+.card-body { padding: 1.25rem 1.75rem; }
+.card-title {
+    color: #000;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Logout button */
+.btn-logout {
+    float: right;
+    background: transparent;
+    border: 1px solid #d2d2dc;
+    border-radius: 4px;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #666;
+}
+.btn-logout:hover { background: #f3f3f3; }
+
+/* Add items */
+.add-items { margin-bottom: 1.5rem; display: flex; gap: 0.5rem; }
+.add-items input[type="text"] {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    font-size: 0.875rem;
+    border: 1px solid #f3f3f3;
+    border-radius: 2px;
+    outline: none;
+    background: transparent;
+}
+.add-items input[type="text"]:focus { border-color: #405189; }
+.add-items .btn {
+    background-color: #405189;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.add-items .btn:hover { background-color: #334270; }
+
+/* List */
+.list-wrapper ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.list-wrapper ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9375rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+.list-wrapper ul li:last-child { border-bottom: none; }
+
+/* Span cliquable */
+.list-wrapper ul li span {
+    flex: 1;
+    cursor: pointer;
+    padding-right: 0.5rem;
+}
+.list-wrapper ul li.done span {
+    text-decoration: line-through;
+    text-decoration-color: #3da5f4;
+    color: #aaa;
+}
+
+/* Delete button */
+.list-wrapper ul li .delete {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #405189;
+    font-size: 1.1rem;
+    padding: 0 0.25rem;
+}
+.list-wrapper ul li .delete:hover { color: #c0392b; }
+
+/* Empty state */
+.list-wrapper ul li.empty {
+    color: #aaa;
+    font-style: italic;
+    justify-content: center;
+    border: none;
+}
