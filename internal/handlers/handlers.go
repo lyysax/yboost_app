@@ -15,7 +15,7 @@ type Todo struct {
 	CreatedAt string `json:"created_at"`
 }
 
-// GET /health — état de la BDD
+// health — état de la BDD
 func Health(w http.ResponseWriter, r *http.Request) {
 	err := db.DB.Ping()
 	w.Header().Set("Content-Type", "application/json")
@@ -27,7 +27,7 @@ func Health(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"status": "ok", "message": "BDD connectée ✅"})
 }
 
-// GET /todos — liste les todos de l'utilisateur connecté
+// todos — liste les todos de l'utilisateur connecté
 func GetTodos(w http.ResponseWriter, r *http.Request) {
 	userID, err := GetUserID(r)
 	if err != nil {
@@ -56,7 +56,7 @@ func GetTodos(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(todos)
 }
 
-// POST /todos — créer une todo
+// todos — créer une todo
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	userID, err := GetUserID(r)
 	if err != nil {
@@ -87,7 +87,7 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(t)
 }
 
-// PUT /todos/{id} — marquer une todo comme faite/pas faite
+// marquer une todo comme faite/pas faite (pas encore dans le front)
 func ToggleTodo(w http.ResponseWriter, r *http.Request) {
 	userID, err := GetUserID(r)
 	if err != nil {
@@ -116,7 +116,7 @@ func ToggleTodo(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(t)
 }
 
-// DELETE /todos/{id} — supprimer une todo
+// supprimer une todo
 func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 	userID, err := GetUserID(r)
 	if err != nil {
@@ -144,7 +144,7 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-// GET /meteo
+// meteo
 func Meteo(w http.ResponseWriter, r *http.Request) {
 	resp, err := http.Get("https://wttr.in/Bordeaux?format=j1")
 	if err != nil {

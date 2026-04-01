@@ -14,6 +14,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// fichiers html et css intégrés dans le binaire
+
 //go:embed templates
 var templatesFS embed.FS
 
@@ -21,10 +23,10 @@ var templatesFS embed.FS
 var staticFS embed.FS
 
 func main() {
-	godotenv.Load()
+	godotenv.Load() // variables d'environnement depuis .env
 	db.Connect()
 
-	mux := http.NewServeMux()
+	mux := http.NewServeMux() // routeur
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
@@ -48,15 +50,19 @@ func main() {
 		w.Write(content)
 	})
 
+	// authentificaion
 	mux.HandleFunc("POST /login", handlers.Login)
 	mux.HandleFunc("POST /register", handlers.Register)
 	mux.HandleFunc("POST /logout", handlers.Logout)
-
 	mux.HandleFunc("GET /health", handlers.Health)
+
+	// les todos
 	mux.HandleFunc("GET /todos", handlers.GetTodos)
 	mux.HandleFunc("POST /todos", handlers.CreateTodo)
 	mux.HandleFunc("PUT /todos/{id}", handlers.ToggleTodo)
 	mux.HandleFunc("DELETE /todos/{id}", handlers.DeleteTodo)
+
+	// météo
 	mux.HandleFunc("GET /meteo", handlers.Meteo)
 
 	staticSub, _ := fs.Sub(staticFS, "static")

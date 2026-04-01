@@ -25,7 +25,7 @@ func Connect() {
 		log.Fatal("Erreur connexion BDD :", err)
 	}
 
-	fmt.Println("✅ Connecté à Supabase !")
+	fmt.Println("Connecté à Supabase !")
 }
 
 // test

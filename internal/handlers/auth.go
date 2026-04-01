@@ -16,17 +16,17 @@ type User struct {
 	Password string `json:"password"`
 }
 
-// GET /login — page de connexion
+// page de connexion
 func LoginPage(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "templates/login.html")
 }
 
-// GET /register — page d'inscription
+// page d'inscription
 func RegisterPage(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "templates/register.html")
 }
 
-// POST /register — créer un compte
+// créer un compte
 func Register(w http.ResponseWriter, r *http.Request) {
 	var u User
 	json.NewDecoder(r.Body).Decode(&u)
@@ -66,7 +66,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"message": "Compte créé !"})
 }
 
-// POST /login — se connecter
+// login se connecter
 func Login(w http.ResponseWriter, r *http.Request) {
 	var u User
 	json.NewDecoder(r.Body).Decode(&u)
@@ -106,7 +106,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"message": "Connecté !"})
 }
 
-// POST /logout — se déconnecter
+// se déconnecter
 func Logout(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &http.Cookie{
 		Name:   "user_id",
@@ -118,7 +118,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"message": "Déconnecté !"})
 }
 
-// GetUserID — récupère l'ID utilisateur depuis le cookie
+// récupère l'ID utilisateur depuis le cookie
 func GetUserID(r *http.Request) (int, error) {
 	cookie, err := r.Cookie("user_id")
 	if err != nil {
